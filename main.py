@@ -1,9 +1,10 @@
 from tkinter import *
 from tkinter import ttk
+import tkinter as tk
 from tkinter.messagebox import showerror, showwarning, showinfo
 
 from db import user
-from second_window import s_win
+from second_window import SecondWindow
 
 
 class MainWindow(Frame):
@@ -78,9 +79,14 @@ class Login(Frame):
         self.passwd_log_entry = Entry(self, width=50, font=('Arial', 14))
         self.passwd_log_entry.pack(padx=10, pady=10)
         
-        self.button_log = Button(self, width=10, font=('Arial', 12), text='Увійти', command=s_win.second_window)
+        self.button_log = Button(self, width=10, font=('Arial', 12), text='Увійти', command=self.open_second_window)
         self.button_log.pack(padx=10, pady=10)
+        
     
+    def open_second_window(self):
+        win2 = tk.Toplevel(self)
+        SecondWindow(win2)
+        
 
 class User(Frame):
     def __init__(self, root):
@@ -93,7 +99,6 @@ class User(Frame):
 
 if __name__ == '__main__':
     root = Tk()
-    
     window = MainWindow(root)
     
     root.title('База даних')
