@@ -2,7 +2,9 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.messagebox import showerror, showwarning, showinfo
 
-from db import insert_user
+from db import user
+from second_window import s_win
+
 
 class MainWindow(Frame):
     def __init__(self, root):
@@ -46,7 +48,7 @@ class Register(Frame):
         
     def write_to_db(self):
         if self.login_entry.get() and self.passwd_entry.get():
-            insert_user(self.login_entry.get(), self.passwd_entry.get())
+            user.insert_user(self.login_entry.get(), self.passwd_entry.get())
             showinfo(title='Інформація', message='Реєстрація успішна!')
         else:
             showerror(title='Помилка', message='Помилка при реєстрації.')
@@ -76,16 +78,10 @@ class Login(Frame):
         self.passwd_log_entry = Entry(self, width=50, font=('Arial', 14))
         self.passwd_log_entry.pack(padx=10, pady=10)
         
-        self.button_log = Button(self, width=10, font=('Arial', 12), text='Увійти', command=self.second_window)
+        self.button_log = Button(self, width=10, font=('Arial', 12), text='Увійти', command=s_win.second_window)
         self.button_log.pack(padx=10, pady=10)
     
-    
-    def second_window(self):
-        self.window = Tk()
-        self.window.title('База даних')
-        self.window.geometry('1000x500')
-        
-        
+
 class User(Frame):
     def __init__(self, root):
         super().__init__(root)
